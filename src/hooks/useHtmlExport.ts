@@ -176,27 +176,27 @@ export const useHtmlExport = () => {
     <h1>🛡️ Vulnerability Dashboard Report</h1>
     <div class="subtitle">Generated on ${new Date().toLocaleString()}</div>
     
-    <div class="summary">
+     <div class="summary">
       <h2>📊 Executive Summary</h2>
       <div class="stats">
         <div class="stat-item">
           <div class="stat-number">${vulnerabilities.length}</div>
           <div class="stat-label">Total Vulnerabilities</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">${severityCounts.Critical}</div>
+        <div class="stat-item" style="border: 2px solid #dc2626; background: rgba(220, 38, 38, 0.1);">
+          <div class="stat-number" style="color: #dc2626;">${severityCounts.Critical}</div>
           <div class="stat-label">Critical</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">${severityCounts.High}</div>
+        <div class="stat-item" style="border: 2px solid #ea580c; background: rgba(234, 88, 12, 0.1);">
+          <div class="stat-number" style="color: #ea580c;">${severityCounts.High}</div>
           <div class="stat-label">High</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">${severityCounts.Medium}</div>
+        <div class="stat-item" style="border: 2px solid #d97706; background: rgba(217, 119, 6, 0.1);">
+          <div class="stat-number" style="color: #d97706;">${severityCounts.Medium}</div>
           <div class="stat-label">Medium</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">${severityCounts.Low}</div>
+        <div class="stat-item" style="border: 2px solid #2563eb; background: rgba(37, 99, 235, 0.1);">
+          <div class="stat-number" style="color: #2563eb;">${severityCounts.Low}</div>
           <div class="stat-label">Low</div>
         </div>
       </div>
