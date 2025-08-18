@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { Vulnerability } from '@/types/vulnerability';
+import { Vulnerability, ProtocolCount } from '@/types/vulnerability';
 
 export const useHtmlExport = () => {
-  const exportToHtml = useCallback((vulnerabilities: Vulnerability[]) => {
+  const exportToHtml = useCallback((vulnerabilities: Vulnerability[], customerName?: string) => {
     const severityCounts = vulnerabilities.reduce((acc, vuln) => {
       acc[vuln.severity] = (acc[vuln.severity] || 0) + 1;
       return acc;
@@ -173,7 +173,7 @@ export const useHtmlExport = () => {
 </head>
 <body>
   <div class="container">
-    <h1>🛡️ Vulnerability Dashboard Report</h1>
+    <h1>🛡️ Vulnerability Dashboard Report${customerName ? ` - ${customerName}` : ''}</h1>
     <div class="subtitle">Generated on ${new Date().toLocaleString()}</div>
     
      <div class="summary">
