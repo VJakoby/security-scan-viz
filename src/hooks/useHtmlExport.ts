@@ -29,9 +29,19 @@ export const useHtmlExport = () => {
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
 
+    const protocolCount = vulnerabilities.reduce((acc, vuln) => {
+      const protocol = vuln.protocol || 'Unknown';
+      acc[protocol] = (acc[protocol] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const topProtocols = Object.entries(protocolCount)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 10);
+
     const generateTableRows = (vulns: Vulnerability[]) => {
       if (vulns.length === 0) {
-        return '<tr><td colspan="6" style="text-align: center; font-style: italic; color: #666;">No vulnerabilities found</td></tr>';
+        return '<tr><td colspan="7" style="text-align: center; font-style: italic; color: #666;">No vulnerabilities found</td></tr>';
       }
       return vulns.map(v => `
         <tr>
@@ -39,6 +49,7 @@ export const useHtmlExport = () => {
           <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;">${v.title}</td>
           <td>${v.asset}</td>
           <td style="font-family: monospace; font-size: 0.9em;">${v.ipAddress}</td>
+          <td style="font-family: monospace; font-size: 0.9em;">${v.protocol}</td>
           <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; background-color: ${getSeverityColor(v.severity)};">${v.severity}</span></td>
           <td style="font-family: monospace;">${v.score.toFixed(1)}</td>
         </tr>
@@ -210,6 +221,7 @@ export const useHtmlExport = () => {
           <th>Title</th>
           <th>Asset</th>
           <th>IP Address</th>
+          <th>Protocol</th>
           <th>Severity</th>
           <th>Score</th>
         </tr>
@@ -227,6 +239,7 @@ export const useHtmlExport = () => {
           <th>Title</th>
           <th>Asset</th>
           <th>IP Address</th>
+          <th>Protocol</th>
           <th>Severity</th>
           <th>Score</th>
         </tr>
@@ -244,12 +257,36 @@ export const useHtmlExport = () => {
           <th>Title</th>
           <th>Asset</th>
           <th>IP Address</th>
+          <th>Protocol</th>
           <th>Severity</th>
           <th>Score</th>
         </tr>
       </thead>
       <tbody>
         ${generateTableRows(mediumVulns)}
+      </tbody>
+    </table>
+
+    <h3>🔌 Top 10 Protocols/Ports</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Protocol/Port</th>
+          <th>Count</th>
+          <th>Percentage</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${topProtocols.length === 0 ? 
+          '<tr><td colspan="3" style="text-align: center; font-style: italic; color: #666;">No protocol data found</td></tr>' :
+          topProtocols.map(([protocol, count]) => `
+            <tr>
+              <td style="font-family: monospace;">${protocol}</td>
+              <td style="font-weight: bold; text-align: center;">${count}</td>
+              <td style="text-align: center;">${((count / vulnerabilities.length) * 100).toFixed(1)}%</td>
+            </tr>
+          `).join('')
+        }
       </tbody>
     </table>
 
