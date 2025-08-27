@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  vulnerability-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    container_name: vulnerability-dashboard
+    restart: unless-stopped
+
+networks:
+  default:
+    name: vulnerability-dashboard-network
