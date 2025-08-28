@@ -17,7 +17,13 @@ export const useFileUpload = () => {
     return new Promise((resolve, reject) => {
       Papa.parse(file, {
         header: true,
-        skipEmptyLines: true,
+        skipEmptyLines: false,
+        quoteChar: '"',
+        escapeChar: '"',
+        transform: (value: string) => {
+          // Trim whitespace but preserve intentional formatting
+          return value?.trim() || '';
+        },
         complete: (results) => {
           if (results.errors.length > 0) {
             reject(new Error(results.errors[0].message));
