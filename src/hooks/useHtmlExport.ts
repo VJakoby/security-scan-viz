@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import { Vulnerability, ProtocolCount } from '@/types/vulnerability';
+import { Vulnerability, ProtocolCount, KEVMatch } from '@/types/vulnerability';
 
 export const useHtmlExport = () => {
-  const exportToHtml = useCallback((vulnerabilities: Vulnerability[], customerName?: string) => {
+  const exportToHtml = useCallback((vulnerabilities: Vulnerability[], customerName?: string, kevMatches?: KEVMatch[]) => {
     const severityCounts = vulnerabilities.reduce((acc, vuln) => {
       acc[vuln.severity] = (acc[vuln.severity] || 0) + 1;
       return acc;
@@ -32,7 +32,7 @@ export const useHtmlExport = () => {
 
     const generateTableRows = (vulns: Vulnerability[]) => {
       if (vulns.length === 0) {
-        return '<tr><td colspan="6" style="text-align: center; font-style: italic; color: #666;">No vulnerabilities found</td></tr>';
+        return '<tr><td colspan="5" style="text-align: center; font-style: italic; color: #666;">No vulnerabilities found</td></tr>';
       }
       return vulns.map(v => `
         <tr>
@@ -40,11 +40,43 @@ export const useHtmlExport = () => {
           <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;">${v.title}</td>
           <td>${v.asset}</td>
           <td style="font-family: monospace; font-size: 0.9em;">${v.ipAddress}</td>
-          <td style="font-family: monospace; font-size: 0.9em;">${v.protocol}</td>
           <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; background-color: ${getSeverityColor(v.severity)};">${v.severity}</span></td>
           <td style="font-family: monospace;">${v.score.toFixed(1)}</td>
         </tr>
       `).join('');
+    };
+
+    const generateKEVTableRows = (matches: KEVMatch[]) => {
+      if (matches.length === 0) {
+        return '<tr><td colspan="7" style="text-align: center; font-style: italic; color: #666;">No Known Exploitable Vulnerabilities found</td></tr>';
+      }
+      return matches.slice(0, 10).map(match => `
+        <tr style="background: rgba(220, 38, 38, 0.1); border-left: 4px solid #dc2626;">
+          <td style="font-family: monospace; font-size: 0.9em; font-weight: bold;">${match.kevEntry.cveID}</td>
+          <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">${match.kevEntry.vulnerabilityName}</td>
+          <td>${match.kevEntry.vendorProject}<br><small style="color: #94a3b8;">${match.kevEntry.product}</small></td>
+          <td>${match.vulnerability.asset}</td>
+          <td style="font-family: monospace;">${match.vulnerability.score.toFixed(1)}</td>
+          <td><span style="padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; background-color: ${getRansomwareColor(match.kevEntry.knownRansomwareCampaignUse)};">${match.kevEntry.knownRansomwareCampaignUse}</span></td>
+          <td style="font-size: 0.9em;">${formatDate(match.kevEntry.dueDate)}</td>
+        </tr>
+      `).join('');
+    };
+
+    const formatDate = (dateString: string) => {
+      try {
+        return new Date(dateString).toLocaleDateString();
+      } catch {
+        return dateString;
+      }
+    };
+
+    const getRansomwareColor = (status: string) => {
+      switch (status?.toLowerCase()) {
+        case 'known': return '#dc2626';
+        case 'unknown': return '#6b7280';
+        default: return '#6b7280';
+      }
     };
 
     const getSeverityColor = (severity: string) => {
@@ -201,10 +233,38 @@ export const useHtmlExport = () => {
           <div class="stat-number" style="color: #2563eb;">${severityCounts.Low}</div>
           <div class="stat-label">Low</div>
         </div>
-      </div>
-    </div>
+       </div>
+     </div>
 
-    <h3>🔴 Critical Vulnerabilities (Top 10)</h3>
+     ${kevMatches && kevMatches.length > 0 ? `
+     <div class="summary" style="border: 2px solid #dc2626; background: rgba(220, 38, 38, 0.1);">
+       <h2>⚠️ Known Exploitable Vulnerabilities (KEV)</h2>
+       <p style="color: #fca5a5; margin-bottom: 15px;">
+         ${kevMatches.length} vulnerabilities found in CISA's Known Exploited Vulnerabilities catalog.
+         These require immediate attention as they are actively exploited in the wild.
+       </p>
+     </div>
+
+     <h3>🚨 Top 10 Known Exploitable Vulnerabilities (KEV)</h3>
+     <table>
+       <thead>
+         <tr>
+           <th>CVE ID</th>
+           <th>Vulnerability Name</th>
+           <th>Vendor/Product</th>
+           <th>Asset</th>
+           <th>Score</th>
+           <th>Ransomware Use</th>
+           <th>Due Date</th>
+         </tr>
+       </thead>
+       <tbody>
+         ${generateKEVTableRows(kevMatches)}
+       </tbody>
+     </table>
+     ` : ''}
+
+     <h3>🔴 Critical Vulnerabilities (Top 10)</h3>
     <table>
       <thead>
         <tr>
@@ -255,10 +315,11 @@ export const useHtmlExport = () => {
       </tbody>
     </table>
 
-    <div class="footer">
-      <p>Report generated by Vulnerability Dashboard</p>
-      <p>Contains ${vulnerabilities.length} total vulnerabilities across ${new Set(vulnerabilities.map(v => v.asset)).size} unique assets</p>
-    </div>
+     <div class="footer">
+       <p>Report generated by Vulnerability Dashboard</p>
+       <p>Contains ${vulnerabilities.length} total vulnerabilities across ${new Set(vulnerabilities.map(v => v.asset)).size} unique assets</p>
+       ${kevMatches && kevMatches.length > 0 ? `<p style="color: #fca5a5; font-weight: bold;">⚠️ ${kevMatches.length} Known Exploitable Vulnerabilities requiring immediate attention</p>` : ''}
+     </div>
   </div>
 </body>
 </html>
