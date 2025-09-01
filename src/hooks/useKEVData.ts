@@ -28,8 +28,32 @@ export const useKEVData = () => {
         }
       }
 
-      // Fetch fresh data
-      const response = await fetch(KEV_API_URL);
+      // Try direct fetch first, then fallback to CORS proxy
+      let response;
+      try {
+        response = await fetch(KEV_API_URL);
+      } catch (corsError) {
+        // CORS blocked, try with proxy
+        const proxyUrl = 'https://api.allorigins.win/get?url=';
+        const targetUrl = encodeURIComponent(KEV_API_URL);
+        response = await fetch(`${proxyUrl}${targetUrl}`);
+        
+        if (!response.ok) {
+          throw new Error(`Proxy request failed: ${response.statusText}`);
+        }
+        
+        const proxyData = await response.json();
+        const data: KEVCatalog = JSON.parse(proxyData.contents);
+        setKevData(data);
+        
+        // Cache the data
+        localStorage.setItem(KEV_CACHE_KEY, JSON.stringify({
+          data,
+          timestamp: Date.now()
+        }));
+        return;
+      }
+      
       if (!response.ok) {
         throw new Error(`Failed to fetch KEV data: ${response.statusText}`);
       }
@@ -44,8 +68,10 @@ export const useKEVData = () => {
       }));
       
     } catch (err) {
-      console.error('Error fetching KEV data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch KEV data');
+      console.warn('KEV data unavailable, continuing without it:', err);
+      setError(err instanceof Error ? err.message : 'KEV data unavailable');
+      // Set empty KEV data so the app continues to work
+      setKevData({ vulnerabilities: [] } as KEVCatalog);
     } finally {
       setLoading(false);
     }
