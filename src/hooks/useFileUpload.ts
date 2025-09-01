@@ -15,28 +15,54 @@ export const useFileUpload = () => {
 
   const parseCSV = useCallback((file: File): Promise<ParsedData> => {
     return new Promise((resolve, reject) => {
-      Papa.parse(file, {
+      console.log('Starting CSV parse for file:', file.name);
+      
+      Papa.parse<VulnerabilityData>(file, {
         header: true,
-        skipEmptyLines: false,
+        skipEmptyLines: true,
         quoteChar: '"',
         escapeChar: '"',
+        delimiter: ',',
         transform: (value: string) => {
-          // Trim whitespace but preserve intentional formatting
           return value?.trim() || '';
         },
         complete: (results) => {
-          if (results.errors.length > 0) {
-            reject(new Error(results.errors[0].message));
+          console.log('Papa Parse results:', {
+            data: results.data?.length,
+            errors: results.errors?.length,
+            meta: results.meta
+          });
+          
+          // Log first few rows for debugging
+          if (results.data && results.data.length > 0) {
+            console.log('First row sample:', results.data[0]);
+          }
+          
+          // Handle errors more gracefully - only reject on critical errors
+          const criticalErrors = results.errors.filter(error => 
+            error.type === 'Delimiter' || error.type === 'Quotes'
+          );
+          
+          if (criticalErrors.length > 0) {
+            console.error('Critical CSV parsing errors:', criticalErrors);
+            reject(new Error(`CSV parsing failed: ${criticalErrors[0].message}`));
             return;
           }
           
-          const headers = results.meta.fields || [];
-          const rows = results.data as VulnerabilityData[];
+          // Log non-critical errors but continue
+          if (results.errors.length > 0) {
+            console.warn('Non-critical CSV parsing errors:', results.errors);
+          }
           
+          const headers = results.meta.fields || [];
+          const rows = results.data;
+          
+          console.log(`Successfully parsed CSV: ${headers.length} headers, ${rows.length} rows`);
           resolve({ headers, rows });
         },
         error: (error) => {
-          reject(new Error(error.message));
+          console.error('Papa Parse error:', error);
+          reject(new Error(`CSV parsing error: ${error.message}`));
         }
       });
     });
