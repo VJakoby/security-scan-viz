@@ -7,7 +7,8 @@
 # Build and run the container
 docker-compose up --build
 
-# Access the application at http://localhost:8888
+# The startup script will display the access URL:
+# 🌐 http://localhost:8888
 ```
 
 ### Option 2: Using Docker directly
@@ -18,8 +19,17 @@ docker build -t vulnerability-dashboard .
 # Run the container
 docker run -p 8888:8888 vulnerability-dashboard
 
-# Access the application at http://localhost:8888
+# The container will display the access information on startup
 ```
+
+## Port Information
+
+- **Web Interface**: Port `8888`
+- **Access URL**: http://localhost:8888
+- **Protocol**: HTTP
+- **Container Port**: 8888 (mapped to host port 8888)
+
+The application startup script will automatically display the access URL when the container starts.
 
 ## Development
 
