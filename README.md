@@ -1,4 +1,7 @@
 # Vulnerability Summarizer Dashboard
+
+Takes a CSV file(Nessus or other vulnerability scanner data export), imports its relevant fields and summarizes the vulnerabilities into different severties, with focus on top 10 count.
+
 ## Features
 - ✅ Complete vulnerability dashboard in a Docker container
 - ✅ CSV file upload and analysis
