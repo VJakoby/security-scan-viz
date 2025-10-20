@@ -1,0 +1,101 @@
+Host,IP,Port,Protocol,Severity,Score,Plugin ID,Plugin Name,Description,Solution,CVEs
+fileserver10,192.168.69.32,443,tcp,Low,3.4,10117,Application Version,Application Version detected on fileserver10.,Apply patch or update Application Version.,CVE-2019-4567
+webserver11,192.168.174.98,143,tcp,High,8.5,10719,MySQL Version Detection,MySQL Version Detection detected on webserver11.,Apply patch or update MySQL Version Detection.,
+mailserver9,192.168.12.62,110,udp,Low,1.1,10571,SMTP Open Relay,SMTP Open Relay detected on mailserver9.,Apply patch or update SMTP Open Relay.,
+webserver2,192.168.97.152,53,tcp,High,7.8,10830,MySQL Version Detection,MySQL Version Detection detected on webserver2.,Apply patch or update MySQL Version Detection.,CVE-2019-4567
+appserver19,192.168.82.240,53,udp,Low,2.4,10487,MySQL Version Detection,MySQL Version Detection detected on appserver19.,Apply patch or update MySQL Version Detection.,CVE-2022-1234
+webserver10,192.168.23.200,53,udp,High,7.0,10244,FTP Weak Password,FTP Weak Password detected on webserver10.,Apply patch or update FTP Weak Password.,
+fileserver11,192.168.29.235,445,udp,Low,2.9,10982,Application Version,Application Version detected on fileserver11.,Apply patch or update Application Version.,CVE-2018-5678
+mailserver4,192.168.210.170,8080,tcp,Medium,5.9,10030,SSH Weak Cipher,SSH Weak Cipher detected on mailserver4.,Apply patch or update SSH Weak Cipher.,CVE-2019-4567
+dbserver8,192.168.208.200,8080,udp,Low,0.7,10749,FTP Weak Password,FTP Weak Password detected on dbserver8.,Apply patch or update FTP Weak Password.,CVE-2019-4567
+appserver14,192.168.63.154,443,udp,Low,3.5,10132,SSH Weak Cipher,SSH Weak Cipher detected on appserver14.,Apply patch or update SSH Weak Cipher.,
+fileserver12,192.168.210.120,53,udp,Low,3.5,10582,SSH Weak Cipher,SSH Weak Cipher detected on fileserver12.,Apply patch or update SSH Weak Cipher.,CVE-2019-4567
+mailserver12,192.168.172.78,8080,tcp,Low,2.4,10010,SMTP Open Relay,SMTP Open Relay detected on mailserver12.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+fileserver4,192.168.43.80,445,tcp,High,7.8,10907,FTP Weak Password,FTP Weak Password detected on fileserver4.,Apply patch or update FTP Weak Password.,
+appserver18,192.168.156.11,21,udp,Medium,4.2,10012,SMB Vulnerability,SMB Vulnerability detected on appserver18.,Apply patch or update SMB Vulnerability.,CVE-2018-5678
+dbserver7,192.168.240.79,3389,tcp,High,6.9,10826,HTTP Server Detection,HTTP Server Detection detected on dbserver7.,Apply patch or update HTTP Server Detection.,
+appserver1,192.168.153.220,143,tcp,Low,1.7,10868,SSH Weak Cipher,SSH Weak Cipher detected on appserver1.,Apply patch or update SSH Weak Cipher.,CVE-2019-4567
+dbserver15,192.168.147.12,443,udp,Low,1.4,10034,SMB Vulnerability,SMB Vulnerability detected on dbserver15.,Apply patch or update SMB Vulnerability.,CVE-2018-5678
+mailserver5,192.168.43.228,21,tcp,Low,3.4,10739,MySQL Version Detection,MySQL Version Detection detected on mailserver5.,Apply patch or update MySQL Version Detection.,CVE-2018-5678
+dbserver4,192.168.247.57,143,udp,Medium,4.6,10996,SMTP Open Relay,SMTP Open Relay detected on dbserver4.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+mailserver12,192.168.223.180,3306,tcp,Critical,9.4,10202,Application Version,Application Version detected on mailserver12.,Apply patch or update Application Version.,
+dbserver16,192.168.197.180,143,tcp,Low,1.5,10727,MySQL Version Detection,MySQL Version Detection detected on dbserver16.,Apply patch or update MySQL Version Detection.,CVE-2022-1234
+appserver13,192.168.39.100,445,udp,Low,3.3,10078,HTTP Server Detection,HTTP Server Detection detected on appserver13.,Apply patch or update HTTP Server Detection.,CVE-2022-1234
+webserver6,192.168.13.247,25,udp,High,7.9,10670,MySQL Version Detection,MySQL Version Detection detected on webserver6.,Apply patch or update MySQL Version Detection.,CVE-2020-3456
+mailserver16,192.168.92.55,21,tcp,Low,3.9,10202,SSH Weak Cipher,SSH Weak Cipher detected on mailserver16.,Apply patch or update SSH Weak Cipher.,CVE-2021-2345
+mailserver11,192.168.119.112,8080,udp,Low,3.3,10687,SSH Weak Cipher,SSH Weak Cipher detected on mailserver11.,Apply patch or update SSH Weak Cipher.,CVE-2021-2345
+fileserver11,192.168.38.233,80,tcp,Critical,9.1,10493,FTP Weak Password,FTP Weak Password detected on fileserver11.,Apply patch or update FTP Weak Password.,CVE-2018-5678
+webserver18,192.168.207.202,443,tcp,High,6.1,10373,SSH Weak Cipher,SSH Weak Cipher detected on webserver18.,Apply patch or update SSH Weak Cipher.,
+dbserver3,192.168.227.97,3306,udp,High,7.5,10534,SMB Vulnerability,SMB Vulnerability detected on dbserver3.,Apply patch or update SMB Vulnerability.,
+mailserver9,192.168.178.142,3389,udp,High,7.1,10028,MySQL Version Detection,MySQL Version Detection detected on mailserver9.,Apply patch or update MySQL Version Detection.,CVE-2019-4567
+mailserver15,192.168.223.24,53,udp,High,8.5,10109,SMB Vulnerability,SMB Vulnerability detected on mailserver15.,Apply patch or update SMB Vulnerability.,CVE-2019-4567
+mailserver1,192.168.56.96,110,udp,Medium,5.3,10799,MySQL Version Detection,MySQL Version Detection detected on mailserver1.,Apply patch or update MySQL Version Detection.,CVE-2019-4567
+mailserver13,192.168.250.141,3306,udp,High,8.6,10524,SSH Weak Cipher,SSH Weak Cipher detected on mailserver13.,Apply patch or update SSH Weak Cipher.,
+fileserver7,192.168.92.5,445,udp,High,6.3,10437,Application Version,Application Version detected on fileserver7.,Apply patch or update Application Version.,CVE-2019-4567
+mailserver2,192.168.127.29,443,tcp,Critical,9.1,10626,Application Version,Application Version detected on mailserver2.,Apply patch or update Application Version.,CVE-2020-3456
+appserver18,192.168.86.53,143,tcp,High,8.5,10912,MySQL Version Detection,MySQL Version Detection detected on appserver18.,Apply patch or update MySQL Version Detection.,CVE-2021-2345
+appserver16,192.168.246.70,445,tcp,Medium,5.6,10652,SMTP Open Relay,SMTP Open Relay detected on appserver16.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+dbserver6,192.168.25.146,22,udp,Low,2.3,10488,SMB Vulnerability,SMB Vulnerability detected on dbserver6.,Apply patch or update SMB Vulnerability.,CVE-2019-4567
+appserver5,192.168.26.197,3306,udp,Critical,9.9,10002,MySQL Version Detection,MySQL Version Detection detected on appserver5.,Apply patch or update MySQL Version Detection.,CVE-2018-5678
+appserver3,192.168.113.230,21,udp,Low,0.7,10968,SMB Vulnerability,SMB Vulnerability detected on appserver3.,Apply patch or update SMB Vulnerability.,CVE-2020-3456
+dbserver18,192.168.167.110,445,tcp,Critical,9.5,10036,HTTP Server Detection,HTTP Server Detection detected on dbserver18.,Apply patch or update HTTP Server Detection.,
+appserver7,192.168.241.7,3306,tcp,Low,1.1,10907,SSH Weak Cipher,SSH Weak Cipher detected on appserver7.,Apply patch or update SSH Weak Cipher.,CVE-2020-3456
+appserver12,192.168.6.206,143,tcp,Low,1.5,10862,FTP Weak Password,FTP Weak Password detected on appserver12.,Apply patch or update FTP Weak Password.,CVE-2020-3456
+mailserver3,192.168.81.144,53,tcp,Medium,5.4,10012,HTTP Server Detection,HTTP Server Detection detected on mailserver3.,Apply patch or update HTTP Server Detection.,CVE-2018-5678
+mailserver8,192.168.75.19,22,udp,Medium,4.5,10063,MySQL Version Detection,MySQL Version Detection detected on mailserver8.,Apply patch or update MySQL Version Detection.,
+mailserver9,192.168.198.150,80,tcp,Low,2.7,10064,SMB Vulnerability,SMB Vulnerability detected on mailserver9.,Apply patch or update SMB Vulnerability.,CVE-2021-2345
+dbserver8,192.168.201.75,110,udp,Low,0.3,10951,SMB Vulnerability,SMB Vulnerability detected on dbserver8.,Apply patch or update SMB Vulnerability.,CVE-2020-3456
+fileserver8,192.168.98.199,21,udp,Low,1.0,10438,SSH Weak Cipher,SSH Weak Cipher detected on fileserver8.,Apply patch or update SSH Weak Cipher.,CVE-2018-5678
+appserver2,192.168.218.185,3389,udp,High,7.6,10465,FTP Weak Password,FTP Weak Password detected on appserver2.,Apply patch or update FTP Weak Password.,CVE-2020-3456
+mailserver12,192.168.54.168,80,udp,Low,1.6,10630,SMB Vulnerability,SMB Vulnerability detected on mailserver12.,Apply patch or update SMB Vulnerability.,
+fileserver18,192.168.117.48,25,udp,Low,1.0,10749,SMB Vulnerability,SMB Vulnerability detected on fileserver18.,Apply patch or update SMB Vulnerability.,CVE-2019-4567
+webserver6,192.168.147.172,22,tcp,High,8.5,10110,SMB Vulnerability,SMB Vulnerability detected on webserver6.,Apply patch or update SMB Vulnerability.,CVE-2019-4567
+webserver16,192.168.64.118,8080,udp,High,7.7,10515,FTP Weak Password,FTP Weak Password detected on webserver16.,Apply patch or update FTP Weak Password.,CVE-2019-4567
+appserver15,192.168.129.157,143,tcp,Low,0.0,10127,SMTP Open Relay,SMTP Open Relay detected on appserver15.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+fileserver1,192.168.132.145,3306,tcp,Low,3.5,10037,SSH Weak Cipher,SSH Weak Cipher detected on fileserver1.,Apply patch or update SSH Weak Cipher.,
+appserver13,192.168.25.21,8080,tcp,High,6.0,10208,Application Version,Application Version detected on appserver13.,Apply patch or update Application Version.,CVE-2022-1234
+appserver20,192.168.126.132,443,udp,Low,1.0,10805,SSH Weak Cipher,SSH Weak Cipher detected on appserver20.,Apply patch or update SSH Weak Cipher.,CVE-2019-4567
+fileserver13,192.168.25.5,110,tcp,Low,2.2,10231,SMTP Open Relay,SMTP Open Relay detected on fileserver13.,Apply patch or update SMTP Open Relay.,CVE-2020-3456
+dbserver8,192.168.23.195,22,tcp,High,6.2,10285,HTTP Server Detection,HTTP Server Detection detected on dbserver8.,Apply patch or update HTTP Server Detection.,CVE-2020-3456
+webserver8,192.168.76.5,25,tcp,Medium,4.3,10320,Application Version,Application Version detected on webserver8.,Apply patch or update Application Version.,CVE-2021-2345
+fileserver6,192.168.81.144,53,tcp,Low,1.6,10368,SMTP Open Relay,SMTP Open Relay detected on fileserver6.,Apply patch or update SMTP Open Relay.,CVE-2019-4567
+webserver20,192.168.155.61,22,udp,High,8.8,10089,SMB Vulnerability,SMB Vulnerability detected on webserver20.,Apply patch or update SMB Vulnerability.,CVE-2022-1234
+mailserver8,192.168.160.54,80,udp,Medium,4.6,10629,FTP Weak Password,FTP Weak Password detected on mailserver8.,Apply patch or update FTP Weak Password.,CVE-2021-2345
+appserver12,192.168.238.83,8080,tcp,High,8.3,10416,FTP Weak Password,FTP Weak Password detected on appserver12.,Apply patch or update FTP Weak Password.,CVE-2018-5678
+webserver10,192.168.168.221,25,udp,High,8.7,10496,SSH Weak Cipher,SSH Weak Cipher detected on webserver10.,Apply patch or update SSH Weak Cipher.,CVE-2020-3456
+webserver18,192.168.154.158,110,udp,High,7.3,10744,SMTP Open Relay,SMTP Open Relay detected on webserver18.,Apply patch or update SMTP Open Relay.,
+mailserver2,192.168.44.253,143,tcp,High,6.7,10959,MySQL Version Detection,MySQL Version Detection detected on mailserver2.,Apply patch or update MySQL Version Detection.,CVE-2021-2345
+mailserver1,192.168.244.104,80,tcp,Medium,5.7,10001,SMB Vulnerability,SMB Vulnerability detected on mailserver1.,Apply patch or update SMB Vulnerability.,CVE-2022-1234
+appserver18,192.168.76.66,143,tcp,Critical,9.4,10703,SMB Vulnerability,SMB Vulnerability detected on appserver18.,Apply patch or update SMB Vulnerability.,CVE-2019-4567
+fileserver17,192.168.176.39,443,tcp,Medium,4.5,10570,SMTP Open Relay,SMTP Open Relay detected on fileserver17.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+appserver20,192.168.182.168,25,tcp,Low,3.8,10910,SMB Vulnerability,SMB Vulnerability detected on appserver20.,Apply patch or update SMB Vulnerability.,CVE-2021-2345
+dbserver17,192.168.104.33,22,udp,Low,1.9,10231,SMB Vulnerability,SMB Vulnerability detected on dbserver17.,Apply patch or update SMB Vulnerability.,CVE-2021-2345
+mailserver20,192.168.229.68,443,tcp,Low,1.1,10490,SMTP Open Relay,SMTP Open Relay detected on mailserver20.,Apply patch or update SMTP Open Relay.,CVE-2020-3456
+appserver14,192.168.230.112,22,tcp,High,6.3,10714,SMTP Open Relay,SMTP Open Relay detected on appserver14.,Apply patch or update SMTP Open Relay.,CVE-2019-4567
+webserver17,192.168.4.145,3306,udp,High,6.6,10486,SMTP Open Relay,SMTP Open Relay detected on webserver17.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+dbserver11,192.168.58.173,143,tcp,Low,3.8,10076,MySQL Version Detection,MySQL Version Detection detected on dbserver11.,Apply patch or update MySQL Version Detection.,CVE-2021-2345
+webserver13,192.168.23.79,8080,tcp,Medium,5.6,10593,FTP Weak Password,FTP Weak Password detected on webserver13.,Apply patch or update FTP Weak Password.,CVE-2022-1234
+appserver2,192.168.178.70,110,tcp,Medium,5.0,10480,HTTP Server Detection,HTTP Server Detection detected on appserver2.,Apply patch or update HTTP Server Detection.,CVE-2018-5678
+fileserver14,192.168.157.14,25,udp,High,8.3,10516,HTTP Server Detection,HTTP Server Detection detected on fileserver14.,Apply patch or update HTTP Server Detection.,CVE-2018-5678
+appserver2,192.168.150.125,53,udp,High,8.4,10925,Application Version,Application Version detected on appserver2.,Apply patch or update Application Version.,CVE-2019-4567
+fileserver13,192.168.10.109,25,udp,High,7.9,10012,FTP Weak Password,FTP Weak Password detected on fileserver13.,Apply patch or update FTP Weak Password.,CVE-2022-1234
+appserver15,192.168.166.228,21,udp,Low,1.1,10921,SMB Vulnerability,SMB Vulnerability detected on appserver15.,Apply patch or update SMB Vulnerability.,CVE-2022-1234
+dbserver8,192.168.248.249,80,udp,Low,1.3,10194,HTTP Server Detection,HTTP Server Detection detected on dbserver8.,Apply patch or update HTTP Server Detection.,CVE-2020-3456
+appserver13,192.168.200.215,443,udp,Low,0.4,10638,SSH Weak Cipher,SSH Weak Cipher detected on appserver13.,Apply patch or update SSH Weak Cipher.,CVE-2018-5678
+appserver2,192.168.213.30,110,tcp,High,6.1,10571,Application Version,Application Version detected on appserver2.,Apply patch or update Application Version.,CVE-2021-2345
+appserver12,192.168.165.20,80,udp,Critical,9.6,10169,MySQL Version Detection,MySQL Version Detection detected on appserver12.,Apply patch or update MySQL Version Detection.,CVE-2018-5678
+appserver11,192.168.11.192,443,udp,Low,0.7,10565,SMTP Open Relay,SMTP Open Relay detected on appserver11.,Apply patch or update SMTP Open Relay.,CVE-2019-4567
+appserver14,192.168.117.238,445,udp,High,7.8,10782,Application Version,Application Version detected on appserver14.,Apply patch or update Application Version.,
+dbserver9,192.168.55.85,25,udp,High,8.5,10636,SMTP Open Relay,SMTP Open Relay detected on dbserver9.,Apply patch or update SMTP Open Relay.,
+fileserver8,192.168.181.77,53,tcp,Low,3.4,10100,SMB Vulnerability,SMB Vulnerability detected on fileserver8.,Apply patch or update SMB Vulnerability.,CVE-2021-2345
+fileserver19,192.168.144.137,143,udp,Low,3.7,10567,SSH Weak Cipher,SSH Weak Cipher detected on fileserver19.,Apply patch or update SSH Weak Cipher.,CVE-2021-2345
+webserver11,192.168.62.97,443,udp,High,8.3,10132,SSH Weak Cipher,SSH Weak Cipher detected on webserver11.,Apply patch or update SSH Weak Cipher.,CVE-2021-2345
+mailserver2,192.168.147.177,8080,tcp,Medium,5.3,10977,FTP Weak Password,FTP Weak Password detected on mailserver2.,Apply patch or update FTP Weak Password.,
+webserver6,192.168.109.115,21,udp,Medium,4.8,10118,HTTP Server Detection,HTTP Server Detection detected on webserver6.,Apply patch or update HTTP Server Detection.,CVE-2018-5678
+dbserver13,192.168.236.138,25,tcp,High,7.7,10359,MySQL Version Detection,MySQL Version Detection detected on dbserver13.,Apply patch or update MySQL Version Detection.,CVE-2019-4567
+mailserver20,192.168.93.223,443,tcp,Low,3.2,10481,Application Version,Application Version detected on mailserver20.,Apply patch or update Application Version.,CVE-2021-2345
+appserver20,192.168.153.212,143,udp,High,6.7,10392,SMTP Open Relay,SMTP Open Relay detected on appserver20.,Apply patch or update SMTP Open Relay.,CVE-2022-1234
+mailserver5,192.168.142.170,3389,tcp,Low,0.9,10639,SMTP Open Relay,SMTP Open Relay detected on mailserver5.,Apply patch or update SMTP Open Relay.,CVE-2022-1234
+fileserver13,192.168.143.87,110,tcp,Critical,9.3,10373,SMTP Open Relay,SMTP Open Relay detected on fileserver13.,Apply patch or update SMTP Open Relay.,CVE-2020-3456
+appserver2,192.168.235.140,8080,udp,High,7.8,10363,SMTP Open Relay,SMTP Open Relay detected on appserver2.,Apply patch or update SMTP Open Relay.,CVE-2021-2345
+mailserver6,192.168.181.75,21,udp,Critical,9.3,10191,MySQL Version Detection,MySQL Version Detection detected on mailserver6.,Apply patch or update MySQL Version Detection.,CVE-2019-4567
