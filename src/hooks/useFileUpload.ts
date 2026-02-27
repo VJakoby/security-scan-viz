@@ -120,8 +120,13 @@ export const useFileUpload = () => {
         setProgressText('Parsing Excel...');
         setProgress(50);
         result = await parseExcel(file);
+      } else if (file.name.toLowerCase().endsWith('.nmap')) {
+        setProgressText('Parsing Nmap output...');
+        setProgress(50);
+        const text = await file.text();
+        result = parseNmapFile(text);
       } else {
-        throw new Error('Unsupported file format. Please select a CSV or Excel file.');
+        throw new Error('Unsupported file format. Please select a CSV, Excel, or .nmap file.');
       }
 
       setProgress(100);
