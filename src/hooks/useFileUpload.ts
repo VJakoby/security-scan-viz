@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import { VulnerabilityData } from '@/types/vulnerability';
+import { parseNmapFile } from '@/hooks/useNmapParser';
 
 export interface ParsedData {
   headers: string[];
