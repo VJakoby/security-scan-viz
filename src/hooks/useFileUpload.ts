@@ -1,12 +1,21 @@
 import { useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
-import { VulnerabilityData } from '@/types/vulnerability';
+import { ImportInfo, Vulnerability, VulnerabilityData } from '@/types/vulnerability';
 import { parseNmapFile } from '@/hooks/useNmapParser';
+import {
+  finalizeGenericVulnerability,
+  normalizeScannerRows,
+  normalizeSeverity,
+  parseXmlScan,
+  uniqueImportedVulnerabilities,
+} from '@/lib/scannerParsers';
 
 export interface ParsedData {
   headers: string[];
   rows: VulnerabilityData[];
+  normalizedVulnerabilities?: Vulnerability[];
+  importInfo?: ImportInfo;
 }
 
 export const useFileUpload = () => {
@@ -104,6 +113,42 @@ export const useFileUpload = () => {
     });
   }, []);
 
+  const normalizeNmapRows = useCallback((rows: VulnerabilityData[], file: File): ParsedData => {
+    const normalizedVulnerabilities = uniqueImportedVulnerabilities(
+      rows.map((row, index) => finalizeGenericVulnerability({
+        id: row['Title']?.toString() || `nmap-${index + 1}`,
+        title: row['Title']?.toString() || row['Service']?.toString() || `Open port ${row['Port'] || ''}`,
+        asset: row['Host']?.toString() || row['IP']?.toString() || 'Unknown',
+        ipAddress: row['IP']?.toString() || '',
+        severity: normalizeSeverity(row['Severity']),
+        score: Number.parseFloat(row['Score']?.toString() || '0') || 0,
+        scanner: 'Nmap',
+        sourceFormat: 'nmap',
+        sourceFile: file.name,
+        description: row['Scripts']?.toString() || row['Version']?.toString() || '',
+        solution: '',
+        cves: [],
+        port: row['Port']?.toString() || '',
+        protocol: row['Protocol']?.toString() || '',
+        service: row['Service']?.toString() || '',
+      }))
+    );
+
+    return {
+      headers: Object.keys(rows[0] || {}),
+      rows,
+      normalizedVulnerabilities,
+      importInfo: {
+        detectedFormat: 'nmap',
+        scanner: 'Nmap',
+        fileName: file.name,
+        recordCount: normalizedVulnerabilities.length,
+        reportName: file.name.replace(/\.[^.]+$/, ''),
+        autoMapped: true,
+      },
+    };
+  }, []);
+
   const uploadFile = useCallback(async (file: File): Promise<ParsedData> => {
     setIsLoading(true);
     setProgress(0);
@@ -120,21 +165,61 @@ export const useFileUpload = () => {
         setProgressText('Parsing Excel...');
         setProgress(50);
         result = await parseExcel(file);
+      } else if (file.name.match(/\.(nessus|xml)$/i)) {
+        setProgressText('Parsing XML scan...');
+        setProgress(50);
+        const text = await file.text();
+        const normalized = parseXmlScan(text, file.name);
+
+        if (!normalized) {
+          throw new Error('Unsupported XML format. Upload a Nessus .nessus file or a Nexpose XML export.');
+        }
+
+        result = {
+          headers: [],
+          rows: [],
+          normalizedVulnerabilities: normalized.vulnerabilities,
+          importInfo: {
+            detectedFormat: normalized.detectedFormat,
+            scanner: normalized.scanner,
+            fileName: file.name,
+            recordCount: normalized.vulnerabilities.length,
+            reportName: normalized.reportName,
+            autoMapped: true,
+          },
+        };
       } else if (file.name.toLowerCase().endsWith('.nmap')) {
         setProgressText('Parsing Nmap output...');
         setProgress(50);
         const text = await file.text();
-        result = parseNmapFile(text);
+        result = normalizeNmapRows(parseNmapFile(text).rows, file);
       } else {
-        throw new Error('Unsupported file format. Please select a CSV, Excel, or .nmap file.');
+        throw new Error('Unsupported file format. Please select CSV, Excel, Nessus/Nexpose XML, or .nmap data.');
+      }
+
+      if (!result.normalizedVulnerabilities && result.rows.length > 0) {
+        const normalized = normalizeScannerRows(result.rows, result.headers, file.name);
+        if (normalized) {
+          result = {
+            ...result,
+            normalizedVulnerabilities: normalized.vulnerabilities,
+            importInfo: {
+              detectedFormat: normalized.detectedFormat,
+              scanner: normalized.scanner,
+              fileName: file.name,
+              recordCount: normalized.vulnerabilities.length,
+              reportName: normalized.reportName,
+              autoMapped: true,
+            },
+          };
+        }
       }
 
       setProgress(100);
-      setProgressText(`Loaded ${result.rows.length} rows successfully!`);
+      const loadedCount = result.normalizedVulnerabilities?.length ?? result.rows.length;
+      setProgressText(`Loaded ${loadedCount} records successfully!`);
       
       return result;
-    } catch (error) {
-      throw error;
     } finally {
       setTimeout(() => {
         setIsLoading(false);
@@ -142,7 +227,7 @@ export const useFileUpload = () => {
         setProgressText('');
       }, 1000);
     }
-  }, [parseCSV, parseExcel]);
+  }, [normalizeNmapRows, parseCSV, parseExcel]);
 
   return {
     uploadFile,

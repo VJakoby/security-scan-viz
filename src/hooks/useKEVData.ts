@@ -84,6 +84,8 @@ export const useKEVData = () => {
     const matches: KEVMatch[] = [];
     
     vulnerabilities.forEach(vuln => {
+      const candidateCves = new Set<string>((vuln.cves || []).map((cve) => cve.toUpperCase()));
+
       // Check if the vulnerability ID is a CVE ID or contains a CVE ID
       const cveRegex = /CVE-\d{4}-\d{4,}/i;
       let cveId = vuln.id;
@@ -99,14 +101,27 @@ export const useKEVData = () => {
       if (titleCveMatch) {
         cveId = titleCveMatch[0].toUpperCase();
       }
-      
-      const kevEntry = kevMap.get(cveId);
-      if (kevEntry) {
-        matches.push({ vulnerability: vuln, kevEntry });
+
+      if (cveId) {
+        candidateCves.add(cveId.toUpperCase());
       }
+
+      candidateCves.forEach((candidate) => {
+        const kevEntry = kevMap.get(candidate);
+        if (kevEntry) {
+          matches.push({ vulnerability: vuln, kevEntry });
+        }
+      });
     });
     
-    return matches.sort((a, b) => b.vulnerability.score - a.vulnerability.score);
+    return matches
+      .filter((match, index, all) =>
+        all.findIndex((candidate) =>
+          candidate.vulnerability.findingKey === match.vulnerability.findingKey &&
+          candidate.kevEntry.cveID === match.kevEntry.cveID
+        ) === index
+      )
+      .sort((a, b) => b.vulnerability.score - a.vulnerability.score);
   }, [kevData]);
 
   useEffect(() => {
