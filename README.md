@@ -1,47 +1,79 @@
 # Security Scan Visualization
 
-React/Vite dashboard for importing vulnerability scanner output and turning it into a reportable view with asset, service, CVE, severity, and remediation context.
+React/Vite dashboard for importing vulnerability scanner output and turning it into a reportable view with asset, IP, service, CVE, severity, and remediation context intact.
 
-## What it handles
+## Current capabilities
 
-- Nessus CSV exports
-- Nessus `.nessus` XML exports
-- Rapid7 Nexpose / InsightVM CSV exports
-- Nexpose XML exports
-- Nmap `.nmap` output
-- Generic CSV / Excel files through manual column mapping
+- Auto-detects and normalizes Nessus CSV exports
+- Auto-detects and normalizes Nessus `.nessus` / XML exports
+- Auto-detects and normalizes Rapid7 Nexpose / InsightVM CSV exports
+- Auto-detects and normalizes Nexpose XML exports
+- Parses Nmap `.nmap` output into dashboard-ready findings
+- Supports generic CSV and Excel uploads through manual column mapping
+- Preserves richer finding context during import, including port, protocol, service, CVEs, description, solution, scanner, and source file
+- Keeps per-host and per-service findings distinct instead of collapsing them into a single deduped issue
+- Enriches findings against CISA KEV data when CVEs match
+- Exports reports to standalone HTML and PDF
+- Persists imported data, customer name, visualization settings, and import metadata in `localStorage` until cleared
 
-## Improvements in this version
+## Dashboard views
 
-- Added scanner-aware auto-detection for Nessus and Nexpose imports
-- Preserved richer fields during import: port, protocol, service, CVEs, description, solution, scanner source
-- Removed the old dedupe behavior that incorrectly collapsed the same vulnerability across multiple hosts
-- Expanded the dashboard with source breakdown, remediation coverage, exposed services, richer finding tables, and better report export
-- Upgraded the HTML export to include more operational data instead of only severity slices
+- Summary cards for findings, severity, assets, IPs, CVEs, and remediation coverage
+- Severity, score, asset, and IP visualizations
+- Finding, asset, IP, frequency, service/port, and KEV tables
+- Scanner/source breakdown and top remediation/service exposure summaries
 
-## Local usage
+## Supported inputs
+
+Automatic import:
+
+- `.csv` for Nessus and Nexpose/InsightVM exports
+- `.nessus` and `.xml` for Nessus and Nexpose XML exports
+- `.nmap` for Nmap output
+
+Manual mapping:
+
+- `.csv`
+- `.xlsx`
+- `.xls`
+
+If a tabular file is not recognized as a scanner export, the app falls back to manual column mapping.
+
+## Local development
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Build for production:
+Available scripts:
 
 ```bash
 npm run build
+npm run build:dev
+npm run lint
+npm run preview
 ```
 
-Lint:
+## Docker
+
+Run with Docker Compose:
 
 ```bash
-npm run lint
+docker-compose up --build
 ```
 
-Access the dashboard at `http://localhost:8888` when running through the provided Docker setup.
+Or build and run the image directly:
+
+```bash
+docker build -t vulnerability-dashboard .
+docker run -p 8888:8888 vulnerability-dashboard
+```
+
+The containerized app is served at `http://localhost:8888`.
 
 ## Notes
 
-- Generic CSV / Excel uploads can still be mapped manually when the file is not auto-recognized.
+- KEV data is fetched from CISA and cached locally for 24 hours; if it is unavailable, the dashboard continues without KEV matches.
 - Demo data can be generated with `fake-nessus-results.py`.
-- The project originated from Lovable and still contains some generated UI scaffolding.
+- The project still contains some generated UI scaffolding from its original Lovable bootstrap.
