@@ -301,15 +301,15 @@ export const normalizeScannerRows = (
   };
 };
 
-const getElements = (root: ParentNode, localNames: string[]): Element[] =>
+const getElements = (root: Element | Document, localNames: string[]): Element[] =>
   Array.from(root.getElementsByTagName('*')).filter((element) =>
     localNames.includes(element.localName)
   );
 
-const getFirstElement = (root: ParentNode, localNames: string[]): Element | undefined =>
+const getFirstElement = (root: Element | Document, localNames: string[]): Element | undefined =>
   getElements(root, localNames)[0];
 
-const getElementText = (root: ParentNode, localNames: string[]): string =>
+const getElementText = (root: Element | Document, localNames: string[]): string =>
   getFirstElement(root, localNames)?.textContent?.trim() || '';
 
 const getDefinitionMap = (document: Document): Map<string, Partial<Vulnerability>> => {
