@@ -5,6 +5,7 @@
     "jsx": "react-jsx",
     "lib": [
       "ES2020",
+      "ES2021.String",
       "DOM",
       "DOM.Iterable"
     ],
